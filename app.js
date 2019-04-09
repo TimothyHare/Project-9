@@ -32,7 +32,7 @@ db.once("open", function(){
   console.log("Task completed. DB has connected")
 })
 
-app.use('/', routes)
+app.use('/api', routes)
 
 // TODO setup your api routes here
 
