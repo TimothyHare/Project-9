@@ -60,14 +60,7 @@ router.get("/users", authorizeUser, function(req, res, next){
 
 //Post User Route 
 router.post("/users", function(req, res, next){
-  const user = new User(
-      {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      emailAddress: req.body.emailAddress,
-      password: bcrypt.hashSync(req.body.password)
-      }
-  ); 
+  const user = new User(req.body); 
   user.save(user, function(err){
   if (err) return res.status(400).json({error: err.message});
   res.location('/');
@@ -104,7 +97,8 @@ router.post("/courses", authorizeUser, function(req, res, next){
       materialsNeeded: req.body.materialsNeeded
   });
   course.save(function(err){
-      if (err) return next(err);
+      if (err) 
+        return next(err);
       res.location("/" + course.id);
       res.status(201).end();
   });
